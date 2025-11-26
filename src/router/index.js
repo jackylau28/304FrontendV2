@@ -6,13 +6,23 @@ import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
+const pageRoutes = Array.from({ length: 10 }, (_, index) => {
+  const pageNumber = index + 1
+  return {
+    path: `/page-${pageNumber}`,
+    name: `Page${pageNumber}`,
+    component: () => import(`../views/Page${pageNumber}.vue`)
+  }
+})
+
 const routes = [
   {
     path: '/',
     name: 'Main',
     component: Main,
-    children:[
-       {path:'/',name:'Home',component:Home} 
+    children: [
+      { path: '/', name: 'Home', component: Home },
+      ...pageRoutes
     ]
   },
   {
